@@ -13,7 +13,21 @@ namespace ConsoleUI
             CarTest();
             BrandTest();
             ColorTest();
+            UserTest();
+            CustomerTest();
 
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Customer { UserId = 1, CompanyName = "Company" });
+        }
+
+        private static void UserTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { FirsName = "Melda", LastName = "Köse", Email = "meldakose99@gmail.com", Password = "123" });
         }
 
         private static void ColorTest()
@@ -40,17 +54,6 @@ namespace ConsoleUI
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-
-            carManager.Add(new Car { BrandId = 1, ColorId = 1, ModelYear = "2018", DailyPrice = 100, Description = "A6 Diesel" });
-
-            foreach (var car in carManager.GetCarsByBrandId(1).Data)
-            {
-                Console.WriteLine(car.Description);
-            }
-            foreach (var car in carManager.GetCarsByColorId(3).Data)
-            {
-                Console.WriteLine(car.Description);
-            }
             var result = carManager.GetCarDetails();
             if (result.Success == true)
             {
